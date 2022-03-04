@@ -1,0 +1,1 @@
+<atis_flight> -> show me flights from [delhi:B-fromloc.city_name] to [pune:B-toloc.city_name]
