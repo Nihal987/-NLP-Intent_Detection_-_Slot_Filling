@@ -1,17 +1,16 @@
 import torch
 import torch.nn as nn
-from transformers import BertModel, BertConfig
+from transformers import MPNetModel
 from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
-
-class JointBERT(BertModel):
+class JointMPNet(MPNetModel):
     def __init__(self, config, args, intent_label_lst, slot_label_lst):
-        super(JointBERT, self).__init__(config)
+        super(JointMPNet, self).__init__(config)
         self.args = args
         self.num_intent_labels = len(intent_label_lst)
         self.num_slot_labels = len(slot_label_lst)
-        self.bert = BertModel(config=config)  # Load pretrained bert
+        self.canine = MPNetModel(config=config)  # Load pretrained bert
 
         self.intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
         self.slot_classifier = SlotClassifier(config.hidden_size, self.num_slot_labels, args.dropout_rate)
@@ -20,7 +19,7 @@ class JointBERT(BertModel):
             self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
 
     def forward(self, input_ids, attention_mask, token_type_ids, intent_label_ids, slot_labels_ids):
-        outputs = self.bert(input_ids, attention_mask=attention_mask,
+        outputs = self.canine(input_ids, attention_mask=attention_mask,
                             token_type_ids=token_type_ids)  # sequence_output, pooled_output, (hidden_states), (attentions)
         sequence_output = outputs[0]
         pooled_output = outputs[1]  # [CLS]

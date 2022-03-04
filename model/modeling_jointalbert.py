@@ -1,11 +1,11 @@
 import torch
 import torch.nn as nn
-from transformers.modeling_albert import AlbertPreTrainedModel, AlbertModel, AlbertConfig
+from transformers import AlbertModel, AlbertConfig
 from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
 
-class JointAlbert(AlbertPreTrainedModel):
+class JointAlbert(AlbertModel):
     def __init__(self, config, args, intent_label_lst, slot_label_lst):
         super(JointAlbert, self).__init__(config)
         self.args = args

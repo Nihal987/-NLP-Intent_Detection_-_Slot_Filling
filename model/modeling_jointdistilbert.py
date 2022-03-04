@@ -1,11 +1,11 @@
 import torch
 import torch.nn as nn
-from transformers.modeling_distilbert import DistilBertPreTrainedModel, DistilBertModel, DistilBertConfig
+from transformers import DistilBertModel, DistilBertConfig
 from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
 
-class JointDistilBERT(DistilBertPreTrainedModel):
+class JointDistilBERT(DistilBertModel):
     def __init__(self, config, args, intent_label_lst, slot_label_lst):
         super(JointDistilBERT, self).__init__(config)
         self.args = args
