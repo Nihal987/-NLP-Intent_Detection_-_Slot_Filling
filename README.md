@@ -43,6 +43,9 @@ $ python3 main.py --task snips \
 $ python3 predict.py --input_file {INPUT_FILE_PATH} --output_file {OUTPUT_FILE_PATH} --model_dir {SAVED_CKPT_PATH}
 ```
 
+## Sample Jupyter Notebook
+I have created a [sample notebook](Intent%2BSlot_filling.ipynb) that can be run on Google Colab 
+
 
 ## References
 
