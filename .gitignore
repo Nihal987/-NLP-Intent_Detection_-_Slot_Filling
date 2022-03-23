@@ -6,4 +6,4 @@ atis_model/
 .DS_Store
 cached*
 sample_pred_out.txt
-.__pycache__/
+__pycache__/
