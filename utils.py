@@ -6,17 +6,21 @@ import torch
 import numpy as np
 from seqeval.metrics import precision_score, recall_score, f1_score
 
-from transformers import BertConfig, DistilBertConfig, AlbertConfig, RobertaConfig, MPNetConfig
-from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, RobertaTokenizer, MPNetTokenizer
+from transformers import BertConfig, DistilBertConfig, AlbertConfig, RobertaConfig, MPNetConfig, AutoConfig
+from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, RobertaTokenizer, MPNetTokenizer, AutoTokenizer
 
-from model import JointBERT, JointDistilBERT, JointAlbert, JointRoberta, JointMPNet
+from model import JointBERT, JointDistilBERT, JointAlbert, JointRoberta, JointMPNet, JointBertweet
+
+BertweetConfig = AutoConfig.from_pretrained("vinai/bertweet-base")
+BertweetTokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
 
 MODEL_CLASSES = {
     'bert': (BertConfig, JointBERT, BertTokenizer),
     'distilbert': (DistilBertConfig, JointDistilBERT, DistilBertTokenizer),
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
     'roberta': (RobertaConfig, JointRoberta, RobertaTokenizer),
-    'mpnet': (MPNetConfig, JointMPNet, MPNetTokenizer)
+    'mpnet': (MPNetConfig, JointMPNet, MPNetTokenizer),
+    'bertweet': (BertweetConfig, JointBertweet, BertweetTokenizer)
 }
 
 MODEL_PATH_MAP = {
@@ -24,7 +28,8 @@ MODEL_PATH_MAP = {
     'distilbert': 'distilbert-base-uncased',
     'albert': 'albert-xxlarge-v1',
     'roberta': 'roberta-base',
-    'mpnet': 'microsoft/mpnet-base'
+    'mpnet': 'microsoft/mpnet-base',
+    'bertweet': 'vinai/bertweet-base'
 }
 
 
