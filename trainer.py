@@ -255,12 +255,12 @@ class Trainer(object):
         # slotprecision.append(total_result['slot_precision'])
         # slotrecall.append(total_result['slot_recall'])
         # intent_accuracy.append(total_result['intent_acc'])
-        newname = 'loss.png'
+        newname = self.args.model_type + 'loss.png'
         if os.path.exists(newname):
             pass
         else:       
             plt.plot(Steps, Eval_Loss)
-            plt.savefig('loss.png')
+            plt.savefig(newname)
         results.update(total_result)
 
         
