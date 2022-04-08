@@ -6,10 +6,20 @@ import torch
 import numpy as np
 from seqeval.metrics import precision_score, recall_score, f1_score
 
-from transformers import BertConfig, DistilBertConfig, AlbertConfig, RobertaConfig, MPNetConfig, AutoConfig
-from transformers import BertTokenizer, DistilBertTokenizer, AlbertTokenizer, RobertaTokenizer, MPNetTokenizer, AutoTokenizer
+from transformers import RobertaConfig, MPNetConfig, AutoConfig
+from transformers import RobertaTokenizer, MPNetTokenizer, AutoTokenizer
 
-from model import JointBERT, JointDistilBERT, JointAlbert, JointRoberta, JointMPNet, JointBertweet
+from transformers import (BertConfig, DistilBertConfig, AlbertConfig, MBartConfig,
+                          MobileBertConfig, GPT2Config, SqueezeBertConfig, XLNetConfig)
+from transformers import (BertTokenizer, DistilBertTokenizer, AlbertTokenizer, 
+                          MBartTokenizer, MobileBertTokenizer, GPT2Tokenizer, 
+                          SqueezeBertTokenizer, XLNetTokenizer)
+
+from model import (JointBERT, JointDistilBERT, JointAlbert, 
+                  JointMBart, JointMobileBERT, JointOpenAIGPT2, JointSqueezeBert, 
+                  JointXLNet)
+
+from model import JointRoberta, JointMPNet, JointBertweet
 
 BertweetConfig = AutoConfig.from_pretrained("vinai/bertweet-base")
 BertweetTokenizer = AutoTokenizer.from_pretrained("vinai/bertweet-base")
@@ -20,7 +30,11 @@ MODEL_CLASSES = {
     'albert': (AlbertConfig, JointAlbert, AlbertTokenizer),
     'roberta': (RobertaConfig, JointRoberta, RobertaTokenizer),
     'mpnet': (MPNetConfig, JointMPNet, MPNetTokenizer),
-    'bertweet': (BertweetConfig, JointBertweet, BertweetTokenizer)
+    'bertweet': (BertweetConfig, JointBertweet, BertweetTokenizer),
+    'mobilebert': (MobileBertConfig, JointMobileBERT, MobileBertTokenizer),
+    'openaigpt2': (GPT2Config, JointOpenAIGPT2, GPT2Tokenizer),
+    'squeezbert': (SqueezeBertConfig, JointSqueezeBert, SqueezeBertTokenizer),
+    'xlnet': (XLNetConfig, JointXLNet, XLNetTokenizer)
 }
 
 MODEL_PATH_MAP = {
@@ -29,7 +43,11 @@ MODEL_PATH_MAP = {
     'albert': 'albert-xxlarge-v1',
     'roberta': 'roberta-base',
     'mpnet': 'microsoft/mpnet-base',
-    'bertweet': 'vinai/bertweet-base'
+    'bertweet': 'vinai/bertweet-base',
+    'mobilebert': 'google/mobilebert-uncased',
+    'openaigpt2': 'gpt2',
+    'squeezbert': 'squeezebert/squeezebert-uncased',
+    'xlnet': 'xlnet-base-cased'
 }
 
 
