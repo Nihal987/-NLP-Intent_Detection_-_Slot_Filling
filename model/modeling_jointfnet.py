@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.fft
 from transformers import FNetModel, FNetConfig
 from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
