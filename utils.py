@@ -9,14 +9,14 @@ from seqeval.metrics import precision_score, recall_score, f1_score
 from transformers import RobertaConfig, MPNetConfig, AutoConfig
 from transformers import RobertaTokenizer, MPNetTokenizer, AutoTokenizer
 
-from transformers import (BertConfig, DistilBertConfig, AlbertConfig, MBartConfig,
+from transformers import (BertConfig, DistilBertConfig, AlbertConfig, 
                           MobileBertConfig, GPT2Config, SqueezeBertConfig, XLNetConfig)
 from transformers import (BertTokenizer, DistilBertTokenizer, AlbertTokenizer, 
                           MBartTokenizer, MobileBertTokenizer, GPT2Tokenizer, 
                           SqueezeBertTokenizer, XLNetTokenizer)
 
 from model import (JointBERT, JointDistilBERT, JointAlbert, 
-                  JointMBart, JointMobileBERT, JointOpenAIGPT2, JointSqueezeBert, 
+                  JointMobileBERT, JointOpenAIGPT2, JointSqueezeBert, 
                   JointXLNet)
 
 from model import JointRoberta, JointMPNet, JointBertweet
