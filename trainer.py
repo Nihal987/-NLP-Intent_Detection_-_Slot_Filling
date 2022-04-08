@@ -8,6 +8,7 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from transformers import BertConfig, AdamW, get_linear_schedule_with_warmup
 
 from utils import MODEL_CLASSES, compute_metrics, get_intent_labels, get_slot_labels
+import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,15 @@ class Trainer(object):
         self.model.to(self.device)
 
     def train(self):
+        print("-------------------------------------------")
+        print(self.args.model_type)
+        print("-------------------------------------------")
+        # Training_loss = []
+        # steps = []
+        slotf1 = []
+        intent_accuracy = []
+        slotprecision = []
+        slotrecall = []
         train_sampler = RandomSampler(self.train_dataset)
         train_dataloader = DataLoader(self.train_dataset, sampler=train_sampler, batch_size=self.args.train_batch_size)
 
@@ -71,7 +81,7 @@ class Trainer(object):
         self.model.zero_grad()
 
         train_iterator = trange(int(self.args.num_train_epochs), desc="Epoch")
-
+        # count = 0
         for _ in train_iterator:
             epoch_iterator = tqdm(train_dataloader, desc="Iteration")
             for step, batch in enumerate(epoch_iterator):
@@ -82,7 +92,7 @@ class Trainer(object):
                           'attention_mask': batch[1],
                           'intent_label_ids': batch[3],
                           'slot_labels_ids': batch[4]}
-                if self.args.model_type != 'distilbert':
+                if self.args.model_type not in ['distilbert', 'mbart', 'mobilebert', 'squeezbert', 'xlnet']:
                     inputs['token_type_ids'] = batch[2]
                 outputs = self.model(**inputs)
                 loss = outputs[0]
@@ -91,8 +101,10 @@ class Trainer(object):
                     loss = loss / self.args.gradient_accumulation_steps
 
                 loss.backward()
-
+                # count += 1
                 tr_loss += loss.item()
+                # Training_loss.append(tr_loss)
+                # steps.append(count)
                 if (step + 1) % self.args.gradient_accumulation_steps == 0:
                     torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.args.max_grad_norm)
 
@@ -102,7 +114,11 @@ class Trainer(object):
                     global_step += 1
 
                     if self.args.logging_steps > 0 and global_step % self.args.logging_steps == 0:
-                        self.evaluate("dev")
+                        results = self.evaluate("dev")
+                        slotf1.append(results['slot_f1'])
+                        slotprecision.append(results['slot_precision'])
+                        slotrecall.append(results['slot_recall'])
+                        intent_accuracy.append(results['intent_acc'])
 
                     if self.args.save_steps > 0 and global_step % self.args.save_steps == 0:
                         self.save_model()
@@ -114,10 +130,34 @@ class Trainer(object):
             if 0 < self.args.max_steps < global_step:
                 train_iterator.close()
                 break
+                
+        # name_metr = 'metrics.png'
+        # eval_steps = [i+1 for i in range(int(self.args.num_train_epochs))]
 
+        # if os.path.exists(name_metr):
+        #     pass
+        # else:       
+        #     plt.plot(eval_steps, intent_accuracy, 'r', label='Intent Acc')
+        #     plt.plot(eval_steps, slotrecall, 'g', label='Slot Recall')
+        #     plt.plot(eval_steps, slotprecision, 'b', label='Slot Precision')
+        #     plt.ylabel('Metrics')
+        #     plt.legend(loc="lower left")
+        #     plt.savefig(name_metr)
+        # plt.title("Training Loss")
+        # plt.xlabel("Total steps")
+        # plt.ylabel("Loss")
+        # plt.plot(steps, Training_loss)
+        # plt.savefig("Trainingloss.png")
         return global_step, tr_loss / global_step
 
     def evaluate(self, mode):
+        Eval_Loss = []
+        
+
+
+
+        Steps = [i+1 for i in range(int(self.args.num_train_epochs))]
+        # count = 0
         if mode == 'test':
             dataset = self.test_dataset
         elif mode == 'dev':
@@ -148,7 +188,7 @@ class Trainer(object):
                           'attention_mask': batch[1],
                           'intent_label_ids': batch[3],
                           'slot_labels_ids': batch[4]}
-                if self.args.model_type != 'distilbert':
+                if self.args.model_type not in ['distilbert', 'mbart', 'mobilebert', 'squeezbert', 'xlnet']:
                     inputs['token_type_ids'] = batch[2]
                 outputs = self.model(**inputs)
                 tmp_eval_loss, (intent_logits, slot_logits) = outputs[:2]
@@ -156,6 +196,9 @@ class Trainer(object):
                 eval_loss += tmp_eval_loss.mean().item()
             nb_eval_steps += 1
 
+            Eval_Loss.append(eval_loss/nb_eval_steps)
+            
+            # print(Eval_Loss, Steps)
             # Intent prediction
             if intent_preds is None:
                 intent_preds = intent_logits.detach().cpu().numpy()
@@ -181,14 +224,17 @@ class Trainer(object):
                     slot_preds = np.append(slot_preds, slot_logits.detach().cpu().numpy(), axis=0)
 
                 out_slot_labels_ids = np.append(out_slot_labels_ids, inputs["slot_labels_ids"].detach().cpu().numpy(), axis=0)
-
+            
+        
         eval_loss = eval_loss / nb_eval_steps
+        Steps = [i+1 for i in range(int(nb_eval_steps))]
+        
         results = {
             "loss": eval_loss
         }
-
+          
         # Intent result
-        intent_preds = np.argmax(intent_preds, axis=1)
+        intent_preds  = np.argmax(intent_preds, axis=1)
 
         # Slot result
         if not self.args.use_crf:
@@ -204,7 +250,32 @@ class Trainer(object):
                     slot_preds_list[i].append(slot_label_map[slot_preds[i][j]])
 
         total_result = compute_metrics(intent_preds, out_intent_label_ids, slot_preds_list, out_slot_label_list)
+        # print("----------------------------------------------------")
+        # print(total_result)
+        # print(type(total_result))
+        # slotf1.append(total_result['slot_f1'])
+        # slotprecision.append(total_result['slot_precision'])
+        # slotrecall.append(total_result['slot_recall'])
+        # intent_accuracy.append(total_result['intent_acc'])
+        newname = self.args.model_type + 'loss.png'
+        if os.path.exists(newname):
+            pass
+        else:       
+            plt.plot(Steps, Eval_Loss)
+            plt.savefig(newname)
         results.update(total_result)
+
+        # if os.path.exists(name_metr):
+        #     pass
+        # else:       
+        #     plt.plot(eval_steps, intent_accuracy, 'r', label='Intent Acc')
+        #     plt.plot(eval_steps, slotrecall, 'g', label='Slot Recall')
+        #     plt.plot(eval_steps, slotprecision, 'b', label='Slot Precision')
+        #     plt.ylabel('Metrics')
+        #     plt.legend(loc="lower left")
+        #     plt.savefig(name_metr)
+        # print(results)
+        # print(type(results))
 
         logger.info("***** Eval results *****")
         for key in sorted(results.keys()):
