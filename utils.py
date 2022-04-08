@@ -14,7 +14,7 @@ from transformers import (BertConfig, DistilBertConfig, AlbertConfig,
 
 from transformers import (RoFormerConfig, FNetConfig)
 from transformers import (RoFormerTokenizer, FNetTokenizer)
-from model import (JointRoFormerModel, FNetModel)
+from model import (JointRoFormerModel, JointFNetModel)
 
 from transformers import (BertTokenizer, DistilBertTokenizer, AlbertTokenizer, 
                           MBartTokenizer, MobileBertTokenizer, GPT2Tokenizer, 
@@ -41,7 +41,7 @@ MODEL_CLASSES = {
     'squeezbert': (SqueezeBertConfig, JointSqueezeBert, SqueezeBertTokenizer),
     'xlnet': (XLNetConfig, JointXLNet, XLNetTokenizer),
     'roform': (RoFormerConfig,JointRoFormerModel,RoFormerTokenizer),
-    'fnet' : (FNetConfig, FNetModel, FNetTokenizer)
+    'fnet' : (FNetConfig, JointFNetModel, FNetTokenizer)
 }
 
 MODEL_PATH_MAP = {
