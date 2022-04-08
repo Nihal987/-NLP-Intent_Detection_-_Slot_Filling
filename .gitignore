@@ -7,3 +7,4 @@ atis_model/
 cached*
 sample_pred_out.txt
 __pycache__/
+data/cached*
