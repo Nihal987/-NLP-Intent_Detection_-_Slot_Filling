@@ -9,4 +9,4 @@ from .modeling_jointopenaigpt2 import JointOpenAIGPT2
 from .modeling_jointsqueezbert import JointSqueezeBert
 from .modeling_jointxlnet import JointXLNet
 from .modeling_roformer import JointRoFormerModel
-from .modeling_jointibert import JointIBert
+
