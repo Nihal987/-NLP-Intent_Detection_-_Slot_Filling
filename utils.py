@@ -12,9 +12,9 @@ from transformers import RobertaTokenizer, MPNetTokenizer, AutoTokenizer
 from transformers import (BertConfig, DistilBertConfig, AlbertConfig, 
                           MobileBertConfig, GPT2Config, SqueezeBertConfig, XLNetConfig)
 
-from transformers import (RoFormerConfig, FNetConfig)
-from transformers import (RoFormerTokenizer, FNetTokenizer)
-from model import (JointRoFormerModel, JointFNetModel)
+from transformers import (RoFormerConfig, FNetConfig, FSMTConfig)
+from transformers import (RoFormerTokenizer, FNetTokenizer, FSMTTokenizer)
+from model import (JointRoFormerModel, JointFNetModel, JointFSMT)
 
 from transformers import (BertTokenizer, DistilBertTokenizer, AlbertTokenizer, 
                           MBartTokenizer, MobileBertTokenizer, GPT2Tokenizer, 
@@ -41,7 +41,8 @@ MODEL_CLASSES = {
     'squeezbert': (SqueezeBertConfig, JointSqueezeBert, SqueezeBertTokenizer),
     'xlnet': (XLNetConfig, JointXLNet, XLNetTokenizer),
     'roform': (RoFormerConfig,JointRoFormerModel,RoFormerTokenizer),
-    'fnet' : (FNetConfig, JointFNetModel, FNetTokenizer)
+    'fnet' : (FNetConfig, JointFNetModel, FNetTokenizer),
+    'fsmt': (FSMTConfig, JointFSMT, FSMTTokenizer)
 }
 
 MODEL_PATH_MAP = {
@@ -56,7 +57,8 @@ MODEL_PATH_MAP = {
     'squeezbert': 'squeezebert/squeezebert-uncased',
     'xlnet': 'xlnet-base-cased',
     'roform': 'junnyu/roformer_chinese_base',
-    'fnet' : 'google/fnet-base'
+    'fnet' : 'google/fnet-base',
+    'fsmt' : 'facebook/wmt19-ru-en'
 }
 
 
