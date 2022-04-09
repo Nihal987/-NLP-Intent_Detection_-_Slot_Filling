@@ -4,13 +4,13 @@ from transformers import FSMTConfig, FSMTModel
 from torchcrf import CRF
 from .module import IntentClassifier, SlotClassifier
 
-class JointFSTM(FSMTModel):
+class JointFSMT(FSMTModel):
     def __init__(self, config, args, intent_label_lst, slot_label_lst):
-        super(JointFSTM, self).__init__(config)
+        super(JointFSMT, self).__init__(config)
         self.args = args
         self.num_intent_labels = len(intent_label_lst)
         self.num_slot_labels = len(slot_label_lst)
-        self.fstm = FSMTModel(config=config)  # Load pretrained bert
+        self.fsmt = FSMTModel(config=config)  # Load pretrained bert
 
         self.intent_classifier = IntentClassifier(config.hidden_size, self.num_intent_labels, args.dropout_rate)
         self.slot_classifier = SlotClassifier(config.hidden_size, self.num_slot_labels, args.dropout_rate)
