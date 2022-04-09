@@ -10,22 +10,22 @@ The objective of this project is to extend the work of Chen et al., to evaluate 
 ### Models for Experimentation
  #### Models that worked
  1. Albert
- 1. Distilbert
- 1. Bertweet
- 1. MPNet
- 1, Roberta
- 1. MobileBERT
- 1. XLNET
- 1. Squeezbert
+ 2. Distilbert
+ 3. Bertweet
+ 4. MPNet
+ 5. Roberta
+ 6. MobileBERT
+ 7. XLNET
+ 8. Squeezbert
  #### Models that failed
  1. CANINE
- 1. BART
- 1. BigBird
- 1. ConvBERT
- 1. DeBerta
- 1. DeBERTa –v2
- 1. MBart
- 1. OpenaiGPT2
+ 2. BART
+ 3. BigBird
+ 4. ConvBERT
+ 5. DeBerta
+ 6. DeBERTa –v2
+ 7. MBart
+ 8. OpenaiGPT2
 
 ## Install Requirements
 ```
