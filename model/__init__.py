@@ -10,4 +10,4 @@ from .modeling_jointsqueezbert import JointSqueezeBert
 from .modeling_jointxlnet import JointXLNet
 from .modeling_roformer import JointRoFormerModel
 from .modeling_jointfnet import JointFNetModel
-from .modeling_modeling_jointfsmt import JointFSTM
+from .modeling_jointfsmt import JointFSMT
