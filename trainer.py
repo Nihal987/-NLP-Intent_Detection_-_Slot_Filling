@@ -189,7 +189,7 @@ class Trainer(object):
                           'attention_mask': batch[1],
                           'intent_label_ids': batch[3],
                           'slot_labels_ids': batch[4]}
-                if self.args.model_type not in ['distilbert', 'mbart', 'mobilebert', 'squeezbert', 'xlnet']:
+                if self.args.model_type not in ['distilbert', 'mbart', 'mobilebert', 'squeezbert', 'xlnet','fnet', 'roform']:
                     inputs['token_type_ids'] = batch[2]
                 outputs = self.model(**inputs)
                 tmp_eval_loss, (intent_logits, slot_logits) = outputs[:2]
