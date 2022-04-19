@@ -17,6 +17,7 @@ The objective of this project is to extend the work of Chen et al., to evaluate 
  6. MobileBERT
  7. XLNET
  8. Squeezbert
+ 9. BERTweet
  #### Models that failed
  1. CANINE
  2. BART
