@@ -28,6 +28,28 @@ The objective of this project is to extend the work of Chen et al., to evaluate 
  7. MBart
  8. OpenaiGPT2
 
+## Results
+| Models            | Intent acc (%) | Slot F1 (%) | Sentence acc (%) |
+| ----------------- | -------------- | ----------- | ---------------- |
+| BERT              | 97.74          | 95.99       | 88.24            |
+| BERT + CRF        | 97.42          | 95.83       | 88.02            |
+| DistilBERT        | 97.54          | 95.28       | 86.9             |
+| DistilBERT + CRF  | 97.42          | 95.89       | 88.24            |
+| ALBERT            | 97.64          | 95.78       | 88.13            |
+| ALBERT + CRF      | 97.42          | 96.32       | 88.69            |
+| RoBERTa           | 97.87          | 95.27       | 87.23            |
+| RoBERTa + CRF     | 97.42          | 95.81       | 88.02            |
+| MPNET             | 92.61          | 84.89       | 63.83            |
+| MPNET + CRF       | 87.34          | 95          | 98.95            |
+| BERTWEET          | 1.9            | 0.23        | 0                |
+| BERTWEET + CRF    | 0.78           | 0.27        | 0                |
+| MobileBERT        | 97.76          | 95.13       | 86               |
+| MobileBERT + CRF  | 97.36          | 95.17       | 86.56            |
+| SqueezeBERT       | 95.63          | 80.85       | 55.65            |
+| SqueezeBERT + CRF | 89.7           | 88.42       | 67.2             |
+| XLNET             | 97.31          | 94.1        | 83.54            |
+| XLNET + CRF       | 97.1           | 94.91       | 84.99            |
+
 ## Install Requirements
 ```
 pip install -r requirements.txt
