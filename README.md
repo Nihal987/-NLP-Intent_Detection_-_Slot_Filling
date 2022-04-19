@@ -56,9 +56,8 @@ pip install -r requirements.txt
 ```
 
 ## Dataset
-This project is evaluated on two benchmark datasets for simultaneous Intent Detection and Slot Filling
+This project is evaluated on the ATIS benchmark dataset for simultaneous Intent Detection and Slot Filling
 - [The ATIS (Airline Travel Information System) Dataset](https://github.com/howl-anderson/ATIS_dataset/blob/master/README.en-US.md)
-- [The SNIPS Dataset](https://github.com/sonos/nlu-benchmark) 
 
 
 ## Training & Evaluation
