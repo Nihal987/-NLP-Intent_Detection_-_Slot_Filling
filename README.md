@@ -63,22 +63,13 @@ This project is evaluated on the ATIS benchmark dataset for simultaneous Intent 
 ## Training & Evaluation
 
 ```bash
-$ python3 main.py --task {task_name} \
-                  --model_type {model_type} \
-                  --model_dir {model_dir_name} \
-                  --do_train --do_eval \
-                  --use_crf
 
 # For ATIS
 $ python3 main.py --task atis \
                   --model_type bert \
                   --model_dir atis_model \
                   --do_train --do_eval
-# For Snips
-$ python3 main.py --task snips \
-                  --model_type bert \
-                  --model_dir snips_model \
-                  --do_train --do_eval
+
 ```
 
 ## Prediction
