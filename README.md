@@ -7,6 +7,14 @@ And the unofficial implementation by [monologg](https://github.com/monologg/Join
 ## Objective
 The objective of this project is to extend the work of Chen et al., to evaluate the performance of various Bert based model for the task of joint intent classification and slot filling and compare their performances.
 
+## Explanation
+Joint Intent Detection and Slot Filling means that the network is able to detect the meaning (<b>intent</b>) and contextual information (<b>slot</b>) from a sentence.<br>
+#### Consider the sentence
+<i>"Remind me at 10:30 AM to call mom."</i><br>
+Here the user's intent is to set a reminder.<br>
+But the slots are the time of the reminder (<i>10:30 AM</i>) and the message of the reminder (<i>call mom</i>).
+
+
 ### Models for Experimentation
  #### Models that worked
  1. Albert
